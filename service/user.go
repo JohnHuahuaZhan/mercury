@@ -1,11 +1,11 @@
 package service
 
 import (
-	"github.com/pingguoxueyuan/gostudy/mercury/orm/dao"
-	model_orm "github.com/pingguoxueyuan/gostudy/mercury/orm/model"
-	"github.com/pingguoxueyuan/gostudy/mercury/service/model"
-	"github.com/pingguoxueyuan/gostudy/mercury/unique"
-	"github.com/pingguoxueyuan/gostudy/mercury/util"
+	"github.com/JohnHuahuaZhan/mercury/orm/dao"
+	model_orm "github.com/JohnHuahuaZhan/mercury/orm/model"
+	"github.com/JohnHuahuaZhan/mercury/service/model"
+	"github.com/JohnHuahuaZhan/mercury/unique"
+	"github.com/JohnHuahuaZhan/mercury/util"
 )
 
 const (
@@ -43,7 +43,7 @@ func Register(user *model.UserInfoSecret) (err error) {
 	userModel.Sex = user.Sex
 	userModel.Nickname = user.Nickname
 
-	err = dao.Insert(userModel)
+	err = dao.InsertUser(userModel)
 	if nil != err {
 		return ErrUnKnow
 	}

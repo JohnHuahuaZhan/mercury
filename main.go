@@ -1,13 +1,13 @@
 package main
 
 import (
+	"github.com/JohnHuahuaZhan/mercury/controller"
+	"github.com/JohnHuahuaZhan/mercury/controller/account"
+	"github.com/JohnHuahuaZhan/mercury/orm/db"
+	"github.com/JohnHuahuaZhan/mercury/unique"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/memstore"
 	"github.com/gin-gonic/gin"
-	"github.com/pingguoxueyuan/gostudy/mercury/controller"
-	"github.com/pingguoxueyuan/gostudy/mercury/controller/account"
-	"github.com/pingguoxueyuan/gostudy/mercury/orm/db"
-	"github.com/pingguoxueyuan/gostudy/mercury/unique"
 	"html/template"
 	"net/http"
 	"os"
@@ -59,6 +59,7 @@ func main() {
 	authorized := router.Group("/auth")
 	authorized.Use(controller.LoginRequired())
 	authorized.GET("/user/home", account.UserHomeHandler)
+	authorized.POST("/user/question/create", account.CreateQuestionHandler)
 
 	router.Run(":9090")
 }

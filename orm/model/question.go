@@ -3,6 +3,7 @@ package model
 import "time"
 
 //Question 除了时间其他均为not null。QuestionId有唯一性约束
+//status you 默认值1
 type Question struct {
 	ID         uint64    `db:"id"`
 	QuestionId uint64    `db:"question_id"`

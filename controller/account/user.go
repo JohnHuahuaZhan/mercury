@@ -1,11 +1,11 @@
 package account
 
 import (
+	"github.com/JohnHuahuaZhan/mercury/controller"
+	"github.com/JohnHuahuaZhan/mercury/service"
+	"github.com/JohnHuahuaZhan/mercury/service/model"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"github.com/pingguoxueyuan/gostudy/mercury/controller"
-	"github.com/pingguoxueyuan/gostudy/mercury/service"
-	"github.com/pingguoxueyuan/gostudy/mercury/service/model"
 	"net/http"
 )
 
@@ -64,7 +64,7 @@ func LoginHandler(c *gin.Context) {
 	//登录
 	info, err := service.Login(&userInfo)
 	if err == service.ErrUserPasswordWrong {
-		controller.ResponseError(c, controller.ErrCodeUserExist, "用户名或密码错误")
+		controller.ResponseError(c, controller.ErrCodeUserExist, service.ErrUserPasswordWrong.Error())
 		return
 	}
 	if err != nil {

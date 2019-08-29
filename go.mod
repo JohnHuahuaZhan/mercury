@@ -1,4 +1,4 @@
-module github.com/pingguoxueyuan/gostudy/mercury
+module github.com/JohnHuahuaZhan/mercury
 
 go 1.12
 

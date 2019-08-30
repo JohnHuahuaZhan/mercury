@@ -14,9 +14,10 @@ const (
 
 // ServiceCreateUser 注册
 func Register(user *model.UserInfoSecret) (err error) {
-
 	userModel := new(model_orm.UserInfo)
-	info, err := dao.UserByName(user.Username)
+
+	userDao := dao.NewUserDao(DT(false))
+	info, err := userDao.UserByName(user.Username)
 	if nil != err {
 		return ErrUnKnow
 	}
@@ -43,7 +44,7 @@ func Register(user *model.UserInfoSecret) (err error) {
 	userModel.Sex = user.Sex
 	userModel.Nickname = user.Nickname
 
-	err = dao.InsertUser(userModel)
+	err = userDao.InsertUser(userModel)
 	if nil != err {
 		return ErrUnKnow
 	}
@@ -53,7 +54,8 @@ func Register(user *model.UserInfoSecret) (err error) {
 // ServiceCreateUser 注册
 //请使用者注意，会修改你传入的的UserInfo的userID。只需要传入username，password
 func Login(user *model.UserInfoSecret) (*model.UserInfoSecret, error) {
-	info, err := dao.UserByName(user.Username)
+	userDao := dao.NewUserDao(DT(false))
+	info, err := userDao.UserByName(user.Username)
 	if nil != err {
 		return nil, ErrUnKnow
 	}

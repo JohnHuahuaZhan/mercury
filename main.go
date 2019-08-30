@@ -60,6 +60,7 @@ func main() {
 	authorized.Use(controller.LoginRequired())
 	authorized.GET("/user/home", account.UserHomeHandler)
 	authorized.POST("/user/question/create", account.CreateQuestionHandler)
+	authorized.POST("/user/category/question", account.CategoryQuestionsHandler)
 
 	router.Run(":9090")
 }

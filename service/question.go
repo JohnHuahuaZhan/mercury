@@ -19,17 +19,31 @@ func CreateQuestion(question *model.QuestionInfo) error {
 	questionDao.Caption = question.Caption
 	questionDao.AuthorId = question.AuthorId
 	questionDao.CategoryId = question.CategoryId
-
-	c, err := dao.CategoryByCID(questionDao.CategoryId)
+	categoryDao := dao.NewCategoryDao(DT(false))
+	c, err := categoryDao.CategoryByCID(questionDao.CategoryId)
 	if nil != err {
 		return ErrUnKnow
 	}
 	if nil == c {
 		return ErrCategoryNotExist
 	}
-	err = dao.InsertQuestion(questionDao)
+	q := dao.NewQuestionDao(DT(false))
+	err = q.InsertQuestion(questionDao)
 	if nil != err {
 		return ErrUnKnow
 	}
 	return nil
+}
+func QuestionsListCategory(category *model.BasicCategory) ([]*model.BasicQuestionInfo, error) {
+
+	q := dao.NewQuestionDao(DT(false))
+	qs, err := q.QuestionsByCID(category.CategoryId)
+	if nil != err {
+		return nil, ErrUnKnow
+	}
+	var result []*model.BasicQuestionInfo
+	for _, q := range qs {
+		result = append(result, &model.BasicQuestionInfo{q.QuestionId, q.Caption, q.AuthorId, q.CategoryId, q.Status})
+	}
+	return result, nil
 }
